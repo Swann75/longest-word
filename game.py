@@ -1,5 +1,6 @@
 import random
 import string
+import requests
 
 class Game():
     def __init__(self):
@@ -12,7 +13,13 @@ class Game():
             if letter not in self.grid:
                 return False
             self.grid.remove(letter)
+
+        r = requests.get(f'https://wagon-dictionary.herokuapp.com/{word}')
+        json = r.json()
+        if json['found'] == False:
+            return False
         return True
+
 
 
 
